@@ -24,16 +24,14 @@ namespace ListBox
     {    
 
         //para actualizar una lista, el list no puede hacerlo, ya que observablecollection puede mostrarnos las actualizaicones 
-        ObservableCollection<string> Colores = new ObservableCollection<string>();
+        ObservableCollection<Color> Colores = new ObservableCollection<Color>();
 
         public MainWindow()
         {   //no se pude llenar aqui y en el xaml, es en un lado o en el otro.....en xaml se comenta igual que en html 
             InitializeComponent();
-            Colores.Add("rojo");
-            Colores.Add("negro");
-            Colores.Add("azul");
-            Colores.Add("blanco");
-
+            Colores.Add(new Color("rojo", "#124","(00,00)"));
+            Colores.Add(new Color("Verde", "#80", "(050,0560)"));
+            Colores.Add(new Color("azul", "#876", "(060,450)"));
             //establecer que elementos va a contener
             lstColores.ItemsSource = Colores;
             
@@ -41,11 +39,42 @@ namespace ListBox
 
         private void BtnNuevoColor_Click(object sender, RoutedEventArgs e)
         {
-            Colores.Add(txtcolor.Text);
+
+
+           Colores.Add(new Color(txtcolor.Text,txthexagecimal.Text,txtrgb.Text));
             txtcolor.Text = "";
-           
+            txthexagecimal.Text = "";
+            txtrgb.Text = "";
 
 
+        }
+
+
+        private void LstColores_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            txtcolor_Copy.Text = Colores[lstColores.SelectedIndex].Nombre;
+            txthexagecimal_Copy.Text = Colores[lstColores.SelectedIndex].Hexadecimal;
+            txtrgb_Copy.Text = Colores[lstColores.SelectedIndex].RGB;
+
+
+
+        }
+
+        private void Btneliminar_Click(object sender, RoutedEventArgs e)
+        {
+            if(lstColores.SelectedIndex !=-1)/*para indicar que no hay nada seleccionado*/
+            {
+                Colores.RemoveAt(lstColores.SelectedIndex);  //para borrar elementos del list box 
+            }
+        }
+
+        private void Btnmodificar_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(lstColores.SelectedIndex !=-1)
+            {
+                txtrgb_Copy.Text = Colores[lstColores.SelectedIndex].RGB;
+
+            }
         }
     }
 }
