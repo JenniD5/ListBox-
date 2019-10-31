@@ -52,10 +52,14 @@ namespace ListBox
 
         private void LstColores_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txtcolor_Copy.Text = Colores[lstColores.SelectedIndex].Nombre;
-            txthexagecimal_Copy.Text = Colores[lstColores.SelectedIndex].Hexadecimal;
-            txtrgb_Copy.Text = Colores[lstColores.SelectedIndex].RGB;
 
+            if (lstColores.SelectedIndex != -1)
+            {
+                txtcolor_Copy.Text = Colores[lstColores.SelectedIndex].Nombre;
+                txthexagecimal_Copy.Text = Colores[lstColores.SelectedIndex].Hexadecimal;
+                txtrgb_Copy.Text = Colores[lstColores.SelectedIndex].RGB;
+            }
+            lstColores.Items.Refresh();
 
 
         }
@@ -71,9 +75,13 @@ namespace ListBox
         private void Btnmodificar_Click_1(object sender, RoutedEventArgs e)
         {
             if(lstColores.SelectedIndex !=-1)
-            {
-                txtrgb_Copy.Text = Colores[lstColores.SelectedIndex].RGB;
 
+            {
+
+                //para modificar primero se busca en la lista, y la clasificacion a la que se iria si se cambia, igalado a la entrada de la caja de teto en la que se va a hacer le cambio
+                Colores[lstColores.SelectedIndex].Nombre = txtcolor_Copy.Text;
+                Colores[lstColores.SelectedIndex].Hexadecimal = txthexagecimal_Copy.Text;
+                Colores[lstColores.SelectedIndex].RGB = txtrgb_Copy.Text;
             }
         }
     }
